@@ -8,7 +8,7 @@ namespace WebApiTarjetas.Repository_s
 
 		Task<card> GetCardById(int id);
 
-		Task<string> createUpdateCard(card);
+		Task<string> createUpdateCard(card myCard);
 
 		Task<string> removeCard(int id);
 	}
