@@ -24,7 +24,7 @@ namespace WebApiTarjetas.Controllers
 		{
 			try
 			{
-			 var list= await _cardRepository.GetCards();
+				var list = await _cardRepository.GetCards();
 				_myresponse.Result = list;
 				_myresponse.DisplayMessages = "List of Cards";
 				return Ok(list);
@@ -43,12 +43,12 @@ namespace WebApiTarjetas.Controllers
 		{
 			try
 			{
-			  var messages=await _cardRepository.createUpdateCard(mycard);
+				var messages = await _cardRepository.createUpdateCard(mycard);
 				if (messages.Equals("create"))
 				{
 					_myresponse.DisplayMessages = "New record create";
 					_myresponse.IsSucces = true;
-					
+
 					return Ok(_myresponse);
 				}
 				if (messages.Equals("-500"))
@@ -56,7 +56,7 @@ namespace WebApiTarjetas.Controllers
 					_myresponse.DisplayMessages = "Error on Create";
 					return BadRequest(_myresponse);
 				}
-				_myresponse.DisplayMessages="error";
+				_myresponse.DisplayMessages = "error";
 				return BadRequest(_myresponse);
 			}
 			catch (Exception e)
@@ -72,10 +72,10 @@ namespace WebApiTarjetas.Controllers
 			try
 			{
 
-				 var messages = await _cardRepository.createUpdateCard(mycard);
+				var messages = await _cardRepository.createUpdateCard(mycard);
 				if (messages.Equals("update"))
 				{
-					
+
 					_myresponse.DisplayMessages = "record update Id : " + mycard.Id;
 					_myresponse.IsSucces = true;
 					return Ok(_myresponse);
@@ -85,7 +85,7 @@ namespace WebApiTarjetas.Controllers
 					_myresponse.DisplayMessages = "Error on update";
 					return BadRequest(_myresponse);
 				}
-		     	_myresponse.DisplayMessages = "error fuera de ruta";
+				_myresponse.DisplayMessages = "error fuera de ruta";
 				return BadRequest(_myresponse);
 			}
 			catch (Exception e)
@@ -102,7 +102,7 @@ namespace WebApiTarjetas.Controllers
 			try
 			{
 				var card = await _cardRepository.GetCardById(id);
-				if (card==null)
+				if (card == null)
 				{
 					_myresponse.DisplayMessages = "the record does not exist";
 					_myresponse.IsSucces = false;
@@ -117,6 +117,44 @@ namespace WebApiTarjetas.Controllers
 				_myresponse.errorMessages = new List<string> { e.Message };
 				return BadRequest(_myresponse);
 			}
+		}
+
+		[HttpDelete]
+		public async Task<ActionResult> removeCard(int id)
+		{
+			try
+			{
+				var messages = await _cardRepository.removeCard(id);
+				if (messages=="false")
+				{
+					_myresponse.DisplayMessages = "This record does not exist!";
+					_myresponse.IsSucces = false;
+					return BadRequest(_myresponse);
+				}
+				if (messages=="true")
+				{
+					_myresponse.DisplayMessages = "Record Deleted";
+					_myresponse.IsSucces = true;
+					return Ok(_myresponse);
+				}
+				if (messages=="-500")
+				{
+					_myresponse.DisplayMessages = "Error internal server";
+					_myresponse.IsSucces = false;
+					return BadRequest(_myresponse);
+				}
+				_myresponse.DisplayMessages = "error";
+				return BadRequest(_myresponse);
+			}
+			catch (Exception e)
+			{
+
+				_myresponse.DisplayMessages = "Error";
+				_myresponse.IsSucces = false;
+				_myresponse.errorMessages = new List<string> { e.Message };
+				return BadRequest(_myresponse);
+			}
+
 		}
 
 	}

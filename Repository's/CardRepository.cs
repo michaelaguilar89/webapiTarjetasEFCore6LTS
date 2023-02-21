@@ -77,7 +77,7 @@ namespace WebApiTarjetas.Repository_s
 			catch (Exception)
 			{
 
-				return "record dot exist";
+				return "-500";
 			}		
 		}
 	}
