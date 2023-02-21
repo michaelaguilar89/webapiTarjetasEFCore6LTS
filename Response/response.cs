@@ -8,7 +8,7 @@ namespace WebApiTarjetas.Response
 
 		public bool IsSucces { get; set; } = true;
 
-		public List<card> Result { get; set; }
+		public Object Result { get; set; }
 
 		public List<String> errorMessages { get; set; }
 	}

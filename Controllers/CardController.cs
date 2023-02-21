@@ -53,7 +53,7 @@ namespace WebApiTarjetas.Controllers
 				}
 				if (messages.Equals("-500"))
 				{
-					_myresponse.DisplayMessages = "Error";
+					_myresponse.DisplayMessages = "Error on Create";
 					return BadRequest(_myresponse);
 				}
 				_myresponse.DisplayMessages="error";
@@ -65,5 +65,58 @@ namespace WebApiTarjetas.Controllers
 				return BadRequest(_myresponse);
 			}
 		}
+
+		[HttpPut]
+		public async Task<ActionResult> UpdateCard(card mycard)
+		{
+			try
+			{
+
+				 var messages= await _cardRepository.createUpdateCard(mycard);
+				if (messages.Equals("record update"))
+				{
+					
+					_myresponse.DisplayMessages = "record update Id : " + mycard.Id;
+					_myresponse.IsSucces = true;
+				}
+				if (messages.Equals("-500"))
+				{
+					_myresponse.DisplayMessages = "Error on update";
+					return BadRequest(_myresponse);
+				}
+				_myresponse.DisplayMessages = "error";
+				return BadRequest(_myresponse);
+			}
+			catch (Exception e)
+			{
+				_myresponse.errorMessages = new List<string> { e.Message };
+				return BadRequest(_myresponse);
+			}
+		}
+
+		[HttpGet("{id}")]
+		public async Task<ActionResult> GetCardById(int id)
+		{
+
+			try
+			{
+				var card = await _cardRepository.GetCardById(id);
+				if (card==null)
+				{
+					_myresponse.DisplayMessages = "the record does not exist";
+					_myresponse.IsSucces = false;
+					return Ok(_myresponse);
+				}
+				_myresponse.Result = card;
+				_myresponse.IsSucces = true;
+				return Ok(_myresponse);
+			}
+			catch (Exception e)
+			{
+				_myresponse.errorMessages = new List<string> { e.Message };
+				return BadRequest(_myresponse);
+			}
+		}
+
 	}
 }
