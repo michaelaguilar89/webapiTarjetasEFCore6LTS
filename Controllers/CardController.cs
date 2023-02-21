@@ -44,7 +44,7 @@ namespace WebApiTarjetas.Controllers
 			try
 			{
 			  var messages=await _cardRepository.createUpdateCard(mycard);
-				if (messages.Equals("record create"))
+				if (messages.Equals("create"))
 				{
 					_myresponse.DisplayMessages = "New record create";
 					_myresponse.IsSucces = true;
@@ -72,19 +72,20 @@ namespace WebApiTarjetas.Controllers
 			try
 			{
 
-				 var messages= await _cardRepository.createUpdateCard(mycard);
-				if (messages.Equals("record update"))
+				 var messages = await _cardRepository.createUpdateCard(mycard);
+				if (messages.Equals("update"))
 				{
 					
 					_myresponse.DisplayMessages = "record update Id : " + mycard.Id;
 					_myresponse.IsSucces = true;
+					return Ok(_myresponse);
 				}
 				if (messages.Equals("-500"))
 				{
 					_myresponse.DisplayMessages = "Error on update";
 					return BadRequest(_myresponse);
 				}
-				_myresponse.DisplayMessages = "error";
+		     	_myresponse.DisplayMessages = "error fuera de ruta";
 				return BadRequest(_myresponse);
 			}
 			catch (Exception e)

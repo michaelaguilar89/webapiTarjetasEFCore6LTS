@@ -19,30 +19,27 @@ namespace WebApiTarjetas.Repository_s
 	
 			try
 			{
-				string messages = "";
-				if (myCard.Id > 0)
+				
+				if (myCard.Id >=1)
 				{
 
-					_db.cards.Update(myCard);
-					messages = "record update";
+				  _db.cards.Update(myCard);	
 					await _db.SaveChangesAsync();
-					return messages;
+					return "update";
 
 				}
 				else {
 					await _db.cards.AddAsync(myCard);
 					
-					messages = "record create";
+					
 					await _db.SaveChangesAsync();
-					return messages;
+					return "create";
 				}
-				//await _db.SaveChangesAsync();
-				//return messages;
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
 
-				return "-500";
+				return "error on cardRepository : "+ e.ToString();
 			}
 		}
 
