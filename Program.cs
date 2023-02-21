@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApiTarjetas.Conexion;
+using WebApiTarjetas.Repository_s;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<CardInterface,CardRepository>();
 
 //Using dependency injection I add the connection string that is in my app.settings.json
 
