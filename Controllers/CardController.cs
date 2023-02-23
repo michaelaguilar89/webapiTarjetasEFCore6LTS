@@ -27,7 +27,8 @@ namespace WebApiTarjetas.Controllers
 				var list = await _cardRepository.GetCards();
 				_myresponse.Result = list;
 				_myresponse.DisplayMessages = "List of Cards";
-				return Ok(list);
+
+				return Ok(_myresponse);
 			}
 			catch (Exception e)
 			{
