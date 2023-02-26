@@ -58,6 +58,7 @@ namespace WebApiTarjetas.Controllers
 					return BadRequest(_myresponse);
 				}
 				_myresponse.DisplayMessages = "error";
+				_myresponse.errorMessages = new List<string> { messages };
 				return BadRequest(_myresponse);
 			}
 			catch (Exception e)
@@ -87,6 +88,7 @@ namespace WebApiTarjetas.Controllers
 					return BadRequest(_myresponse);
 				}
 				_myresponse.DisplayMessages = "error fuera de ruta";
+				_myresponse.errorMessages = new List<string> { messages };
 				return BadRequest(_myresponse);
 			}
 			catch (Exception e)
