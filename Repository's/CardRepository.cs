@@ -47,6 +47,7 @@ namespace WebApiTarjetas.Repository_s
 		{
 			
 				var card = await _db.cards.FindAsync(id);
+				
 				return card;
 			
 			

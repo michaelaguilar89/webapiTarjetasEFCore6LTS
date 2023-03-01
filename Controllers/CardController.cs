@@ -63,6 +63,8 @@ namespace WebApiTarjetas.Controllers
 			}
 			catch (Exception e)
 			{
+				_myresponse.DisplayMessages = "error try catch";
+				_myresponse.IsSucces = true;
 				_myresponse.errorMessages = new List<string> { e.Message };
 				return BadRequest(_myresponse);
 			}
@@ -122,7 +124,7 @@ namespace WebApiTarjetas.Controllers
 			}
 		}
 
-		[HttpDelete]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> removeCard(int id)
 		{
 			try
