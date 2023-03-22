@@ -28,7 +28,7 @@ builder.Services.AddScoped<CardInterface,CardRepository>();
 
 builder.Services.AddDbContext<AppDBContext>(opt =>
 {
-	opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConection"));
+	opt.UseSqlServer(builder.Configuration.GetConnectionString("SomeeConnection"));
 });
 var app = builder.Build();
 
